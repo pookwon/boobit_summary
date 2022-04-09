@@ -1,0 +1,1 @@
+python -m PyQt5.uic.pyuic -x .\boobit_gui.ui -o boobit_gui.py

@@ -1,0 +1,1 @@
+pyinstaller --add-data "summary.py;./" -n boobit.exe boobit_gui.py
