@@ -64,6 +64,7 @@ class Ui_Dialog(object):
         dialog = QtWidgets.QFileDialog(Dialog)
         dialog.setFileMode(QtWidgets.QFileDialog.AnyFile)
         dialog.AcceptMode(QtWidgets.QFileDialog.AcceptSave)
+        dialog.setDefaultSuffix('xlsx')
         dialog.setNameFilter("Excel (*.xlsx)")
         if dialog.exec():
             self.labelTargatPath.setText(dialog.selectedFiles()[0])

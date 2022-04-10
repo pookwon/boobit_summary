@@ -18,7 +18,8 @@ def summary_voulme(source_path, target_path):
     #print(source_frames.keys())
 
     uid_list = set(source_frames['유저ID'].values.tolist())
-    uid_list.remove(NaN)
+    if NaN in uid_list:
+        uid_list.remove(NaN)
     #print(uid_list)
 
     uid_datas = []
