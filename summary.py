@@ -6,22 +6,22 @@ import operator
 
 def get_coin_price(source, cointype, date):
     market = cointype + "USD"
-    user_trades = source[ (source['거래'] == market) & (source['날짜'] >= date) & (source['체결 코인 수량'] == cointype) & (source['거래 평균가'] > 0)]
+    user_trades = source[ (source['거래'] == market) & (source['날짜'] >= date) & (source['거래 평균가'] > 0)]
+    values = user_trades["거래 평균가"].values
+    if len(values) == 0:
+        market = cointype + "USDT"
+        user_trades = source[ (source['거래'] == market) & (source['거래 평균가'] > 0)]
+        values = user_trades["거래 평균가"].values
+
+    if len(values) == 0:
+        print(cointype, "'s price not found")
+        return 0
+
     #print(user_trades)
-    return user_trades["거래 평균가"].values[0]
+    return values[0]
 
 def summary_voulme(source_path, target_path):
     source_frames = pd.read_csv(source_path, dtype={'날짜':str, '종류':str, '거래':str, '유저ID':str, '체결 수량':float64, '체결 코인 수량':str, '거래 평균가':float64, '수수료':float64})
-
-    #source_path = './sample.xlsx'
-    #source_frames = pd.read_excel(source_path)
-
-    #source_path = './real_sample.csv'
-    #source_frames = pd.read_csv(source_path, dtype={'날짜':str, '유저ID':str, '체결 수량':float64, '거래 평균가':float64})
-    #target_path = './sort_sample.xlsx'
-
-    #print(source_frames['유저ID'])
-    #print(source_frames.keys())
 
     uid_list = set(source_frames['유저ID'].values.tolist())
     if NaN in uid_list:
